@@ -10,7 +10,7 @@ import UIKit
 
 class PeopleViewController: UITableViewController {
 
-    var people: [String] = []
+    var people: [NSDictionary] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +29,12 @@ class PeopleViewController: UITableViewController {
                     
                     if let results = jsonResult["results"] {
                         let resultsArray = results as! NSArray
-                        print(resultsArray[0])
+                        resultsArray.forEach{ element in
+                            self.people.append((element as? NSDictionary)!)
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
                     }
                 }
             } catch {
@@ -56,7 +61,7 @@ class PeopleViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = people[indexPath.row]
+        cell.textLabel?.text = people[indexPath.row]["name"] as! String
         return cell
     }
 
