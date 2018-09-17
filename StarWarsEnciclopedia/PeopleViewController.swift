@@ -10,40 +10,64 @@ import UIKit
 
 class PeopleViewController: UITableViewController {
 
-    var people: [NSDictionary] = []
+    var people: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // specify the url that we will be sending the GET Request to
-        let url = URL(string: "http://swapi.co/api/people/")
-        // create a URLSession to handle the request tasks
-        let session = URLSession.shared
-        // create a "data task" to make the request and run the completion handler
-        let task = session.dataTask(with: url!, completionHandler: {
-            // see: Swift closure expression syntax
+        
+        //After MVC refactoring
+        StarWarsModel.getAllPeople(completionHandler: {
+            // passing what becomes "completionHandler" in the 'getAllPeople' function definition in StarWarsModel.swift
             data, response, error in
-            
             do {
-                // try converting the JSON object to "Foundation Types" (NSDictionary, NSArray, NSString, etc.)
+                // Try converting the JSON object to "Foundation Types" (NSDictionary, NSArray, NSString, etc.)
                 if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
-                    
-                    if let results = jsonResult["results"] {
-                        let resultsArray = results as! NSArray
-                        resultsArray.forEach{ element in
-                            self.people.append((element as? NSDictionary)!)
+                    if let results = jsonResult["results"] as? NSArray {
+                        for person in results {
+                            let personDict = person as! NSDictionary
+                            self.people.append(personDict["name"]! as! String)
                         }
                     }
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
+                }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
                 }
             } catch {
-                print(error)
+                print("Something went wrong")
             }
         })
-        // execute the task and wait for the response before
-        // running the completion handler. This is async!
-        task.resume()
+        
+//        before MVC refactoring
+//        // specify the url that we will be sending the GET Request to
+//        let url = URL(string: "http://swapi.co/api/people/")
+//        // create a URLSession to handle the request tasks
+//        let session = URLSession.shared
+//        // create a "data task" to make the request and run the completion handler
+//        let task = session.dataTask(with: url!, completionHandler: {
+//            // see: Swift closure expression syntax
+//            data, response, error in
+//
+//            do {
+//                // try converting the JSON object to "Foundation Types" (NSDictionary, NSArray, NSString, etc.)
+//                if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
+//
+//                    if let results = jsonResult["results"] {
+//                        let resultsArray = results as! NSArray
+//                        resultsArray.forEach{ element in
+//                            self.people.append((element as? NSDictionary)!)
+//                        }
+//                    }
+//                    DispatchQueue.main.async {
+//                        self.tableView.reloadData()
+//                    }
+//                }
+//            } catch {
+//                print(error)
+//            }
+//        })
+//        // execute the task and wait for the response before
+//        // running the completion handler. This is async!
+//        task.resume()
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,7 +84,7 @@ class PeopleViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = people[indexPath.row]["name"] as! String
+        cell.textLabel?.text = people[indexPath.row]
         return cell
     }
 

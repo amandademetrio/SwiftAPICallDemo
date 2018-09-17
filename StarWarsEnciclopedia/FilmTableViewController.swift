@@ -14,9 +14,7 @@ class FilmTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let url = URL(string: "http://swapi.co/api/films/")
-        let session = URLSession.shared
-        let task = session.dataTask(with: url!, completionHandler: {
+        StarWarsModel.getAllFilms {
             data, response, error in
             do {
                 if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
@@ -33,9 +31,8 @@ class FilmTableViewController: UITableViewController {
             } catch {
                 print(error)
             }
-        })
-    task.resume()
-    
+            
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,7 +50,7 @@ class FilmTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = films[indexPath.row]["title"] as! String
+        cell.textLabel?.text = films[indexPath.row]["title"] as? String
         return cell
     }
 
