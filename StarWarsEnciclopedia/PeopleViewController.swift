@@ -10,7 +10,7 @@ import UIKit
 
 class PeopleViewController: UITableViewController {
 
-    var people: [String] = []
+    var people: [NSDictionary] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,49 +25,18 @@ class PeopleViewController: UITableViewController {
                     if let results = jsonResult["results"] as? NSArray {
                         for person in results {
                             let personDict = person as! NSDictionary
-                            self.people.append(personDict["name"]! as! String)
+                            self.people.append(personDict)
                         }
                     }
                 }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    print(self.people)
                 }
             } catch {
                 print("Something went wrong")
             }
         })
-        
-//        before MVC refactoring
-//        // specify the url that we will be sending the GET Request to
-//        let url = URL(string: "http://swapi.co/api/people/")
-//        // create a URLSession to handle the request tasks
-//        let session = URLSession.shared
-//        // create a "data task" to make the request and run the completion handler
-//        let task = session.dataTask(with: url!, completionHandler: {
-//            // see: Swift closure expression syntax
-//            data, response, error in
-//
-//            do {
-//                // try converting the JSON object to "Foundation Types" (NSDictionary, NSArray, NSString, etc.)
-//                if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
-//
-//                    if let results = jsonResult["results"] {
-//                        let resultsArray = results as! NSArray
-//                        resultsArray.forEach{ element in
-//                            self.people.append((element as? NSDictionary)!)
-//                        }
-//                    }
-//                    DispatchQueue.main.async {
-//                        self.tableView.reloadData()
-//                    }
-//                }
-//            } catch {
-//                print(error)
-//            }
-//        })
-//        // execute the task and wait for the response before
-//        // running the completion handler. This is async!
-//        task.resume()
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,6 +46,16 @@ class PeopleViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination as! PeopleDetailViewController
+        let indexPath = sender as! IndexPath
+        destination.name = people[indexPath.row]["name"] as? String
+        destination.gender = people[indexPath.row]["gender"] as? String
+        destination.birthYear = people[indexPath.row]["birth_year"] as? String
+        destination.mass = people[indexPath.row]["mass"] as? String
+        
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return people.count
@@ -84,8 +63,12 @@ class PeopleViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = people[indexPath.row]
+        cell.textLabel?.text = people[indexPath.row]["name"] as? String
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "PeopleDetailSegue", sender: indexPath)
     }
 
 }

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		D077DAFF21501386000C30D5 /* StarWarsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D077DAFE21501386000C30D5 /* StarWarsModel.swift */; };
 		D090D0F0214F632F0060119B /* FilmTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D090D0EF214F632F0060119B /* FilmTableViewController.swift */; };
+		D0CBFCBA2150247B00C5E60A /* PeopleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CBFCB92150247B00C5E60A /* PeopleDetailViewController.swift */; };
+		D0CBFCBC2150249800C5E60A /* FilmDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CBFCBB2150249800C5E60A /* FilmDetailViewController.swift */; };
 		D0E70A13214E1FEB00925587 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E70A12214E1FEB00925587 /* AppDelegate.swift */; };
 		D0E70A18214E1FEB00925587 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0E70A16214E1FEB00925587 /* Main.storyboard */; };
 		D0E70A1B214E1FEB00925587 /* StarWarsEnciclopedia.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D0E70A19214E1FEB00925587 /* StarWarsEnciclopedia.xcdatamodeld */; };
@@ -20,6 +22,8 @@
 /* Begin PBXFileReference section */
 		D077DAFE21501386000C30D5 /* StarWarsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarWarsModel.swift; sourceTree = "<group>"; };
 		D090D0EF214F632F0060119B /* FilmTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmTableViewController.swift; sourceTree = "<group>"; };
+		D0CBFCB92150247B00C5E60A /* PeopleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleDetailViewController.swift; sourceTree = "<group>"; };
+		D0CBFCBB2150249800C5E60A /* FilmDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmDetailViewController.swift; sourceTree = "<group>"; };
 		D0E70A0F214E1FEB00925587 /* StarWarsEnciclopedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarWarsEnciclopedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E70A12214E1FEB00925587 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0E70A17214E1FEB00925587 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -62,8 +66,10 @@
 			children = (
 				D0E70A12214E1FEB00925587 /* AppDelegate.swift */,
 				D0E70A16214E1FEB00925587 /* Main.storyboard */,
-				D090D0EF214F632F0060119B /* FilmTableViewController.swift */,
 				D0E70A27214E206000925587 /* PeopleViewController.swift */,
+				D0CBFCB92150247B00C5E60A /* PeopleDetailViewController.swift */,
+				D090D0EF214F632F0060119B /* FilmTableViewController.swift */,
+				D0CBFCBB2150249800C5E60A /* FilmDetailViewController.swift */,
 				D077DAFE21501386000C30D5 /* StarWarsModel.swift */,
 				D0E70A1C214E1FEC00925587 /* Assets.xcassets */,
 				D0E70A1E214E1FEC00925587 /* LaunchScreen.storyboard */,
@@ -148,7 +154,9 @@
 				D0E70A1B214E1FEB00925587 /* StarWarsEnciclopedia.xcdatamodeld in Sources */,
 				D077DAFF21501386000C30D5 /* StarWarsModel.swift in Sources */,
 				D0E70A28214E206000925587 /* PeopleViewController.swift in Sources */,
+				D0CBFCBA2150247B00C5E60A /* PeopleDetailViewController.swift in Sources */,
 				D090D0F0214F632F0060119B /* FilmTableViewController.swift in Sources */,
+				D0CBFCBC2150249800C5E60A /* FilmDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
